@@ -53,7 +53,7 @@ const filterIrems = {
     colors: [
         '#FFFFFF', '#9C9C9C', '#000000', '#CA0000', '#FFA800', '#FFD600',
         '#FFF500', '#04CE00', '#00E0B8', '#006AE7', '#A000D8', '#EB05E2', 
-        '#EB05E2', '#875213'
+        '#FF006B', '#875213'
     ],
     seasons: [
         {
@@ -69,9 +69,6 @@ const filterIrems = {
             labelName: 'Лето'
         }
     ],
-    prices: [
-        {
-            
-        }
-    ]
 }
+
+module.exports = filterIrems
