@@ -4,12 +4,21 @@ const cors = require('cors')
 const app = express()
 const router = require('./router')
 const PORT = process.env.PORT || 3001
+const cookieParser = require('cookie-parser')
 const mongoose = require('mongoose')
+const methodOverride = require('method-override')
+const errorMiddleware = require('./middlewares/error-middleware');
 
-app.use(express.json())
-app.use(cors())
+app.use(express.json());
+app.use(methodOverride('_method'))
+app.use(cookieParser());
+app.use(cors({
+    origin: process.env.CLIENT_URL,
+    credentials: true,
+}))
 app.use('/images', express.static('images'))
 app.use('/', router)
+app.use(errorMiddleware)
 
 app.get('/', (req, res) => {
     res.send('Hello world!')

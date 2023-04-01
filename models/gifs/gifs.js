@@ -1,4 +1,4 @@
-const SERVER_HOST = process.env.SERVER_HOST
+const SERVER_HOST = process.env.API_URL
 const getGif = (id) => `${SERVER_HOST}images/gifs/gif${id}.gif`
 
 

@@ -1,4 +1,4 @@
-const getPhoto = id => `${process.env.SERVER_HOST}images/reviews/${id}/ava.png`
+const getPhoto = id => `${process.env.API_URL}images/reviews/${id}/ava.png`
 
 const reviews = [
     {

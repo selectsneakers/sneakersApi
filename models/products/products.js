@@ -1,4 +1,4 @@
-const SERVER_HOST = process.env.SERVER_HOST
+const SERVER_HOST = process.env.API_URL
 
 const getDate = (year, month, day) => {
     return {year, month, day}

@@ -16,8 +16,9 @@ class DataController {
 
     getProducts (req, res) {
         const {
-            trands, search, id, similarTo, offset, limit, 
-            category, brand, size, season, color, minPrice, maxPrice
+            trands, search, id, similarTo, offset, limit, type,
+            category, brand, size, season, color, minPrice, maxPrice,
+            productsById,
         } = req.query
         const initOffset = +offset || 0
         const initLimit = +limit || 12
@@ -26,6 +27,16 @@ class DataController {
 
         if(id) {
             customized = customized.find(product => +product.id === +id)
+            
+            res.send(customized)
+            return
+        }
+
+        if(productsById) {
+            let idArr = productsById.split(',').map(i => +i)
+
+            customized = customized.filter(product => idArr.includes(+product.id))
+
             res.send(customized)
             return
         }
@@ -88,6 +99,22 @@ class DataController {
             customized = customized.filter(product => product.price < maxPrice)
             count = customized.length
         }
+
+        if(type === 'news') {
+            customized = customized.sort((a, b) => {
+                if(a.date.year > b.date.year) {
+                    return 1
+                } else if(b.date.year > a.date.year) {
+                    return -1
+                } else {
+                    return 0
+                }
+            }).slice(0, 10)
+            count = customized.length
+        } else if(type) {
+            customized = customized.filter(product => product.type.includes(type))
+            count = customized.length
+        }
         
         customized = customized.slice(initOffset, initOffset + initLimit)
 
@@ -100,7 +127,6 @@ class DataController {
                 maxPrice: products.reduce((prev, curr) => prev > curr.price ? prev : curr.price, products[0].price),
             },
         }
-        console.log(customized);
         res.send(customized)
     }
 
