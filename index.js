@@ -12,10 +12,7 @@ const errorMiddleware = require('./middlewares/error-middleware');
 app.use(express.json());
 app.use(methodOverride('_method'))
 app.use(cookieParser());
-app.use(cors({
-    origin: process.env.CLIENT_URL,
-    credentials: true,
-}))
+app.use(cors())
 app.use('/images', express.static('images'))
 app.use('/', router)
 app.use(errorMiddleware)
